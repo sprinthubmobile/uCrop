@@ -280,7 +280,8 @@ public class UCropFragment extends Fragment {
     private TransformImageView.TransformImageListener mImageListener = new TransformImageView.TransformImageListener() {
         @Override
         public void onRotate(float currentAngle) {
-            setAngleText(currentAngle);
+            //setAngleText(currentAngle);
+
         }
 
         @Override
@@ -448,8 +449,8 @@ public class UCropFragment extends Fragment {
     }
 
     private void setScaleText(float scale) {
-        if (mTextViewScalePercent != null) {
-            mTextViewScalePercent.setText(String.format(Locale.getDefault(), "%d%%", (int) (scale * 100)));
+        if (mTextViewRotateAngle != null) {
+            mTextViewRotateAngle.setText(String.format(Locale.getDefault(), "%d%%", (int) (scale * 100)));
         }
     }
 
@@ -516,7 +517,7 @@ public class UCropFragment extends Fragment {
         if (getView() != null) {
             TransitionManager.beginDelayedTransition((ViewGroup) getView().findViewById(R.id.ucrop_photobox), mControlsTransition);
         }
-        mWrapperStateScale.findViewById(R.id.text_view_scale).setVisibility(stateViewId == R.id.state_scale ? View.VISIBLE : View.GONE);
+        mWrapperStateScale.findViewById(R.id.text_view_scale).setVisibility(stateViewId == R.id.state_rotate ? View.VISIBLE : View.GONE);
         mWrapperStateAspectRatio.findViewById(R.id.text_view_crop).setVisibility(stateViewId == R.id.state_aspect_ratio ? View.VISIBLE : View.GONE);
         mWrapperStateRotate.findViewById(R.id.text_view_rotate).setVisibility(stateViewId == R.id.state_rotate ? View.VISIBLE : View.GONE);
     }

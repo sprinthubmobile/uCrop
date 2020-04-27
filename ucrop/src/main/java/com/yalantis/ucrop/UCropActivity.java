@@ -377,7 +377,8 @@ public class UCropActivity extends AppCompatActivity {
     private TransformImageView.TransformImageListener mImageListener = new TransformImageView.TransformImageListener() {
         @Override
         public void onRotate(float currentAngle) {
-            setAngleText(currentAngle);
+            //setAngleText(currentAngle);
+
         }
 
         @Override
@@ -490,7 +491,13 @@ public class UCropActivity extends AppCompatActivity {
                 .setScrollingListener(new HorizontalProgressWheelView.ScrollingListener() {
                     @Override
                     public void onScroll(float delta, float totalDistance) {
-                        mGestureCropImageView.postRotate(delta / ROTATE_WIDGET_SENSITIVITY_COEFFICIENT);
+                        if (delta > 0) {
+                            mGestureCropImageView.zoomInImage(mGestureCropImageView.getCurrentScale()
+                                    + delta * ((mGestureCropImageView.getMaxScale() - mGestureCropImageView.getMinScale()) / SCALE_WIDGET_SENSITIVITY_COEFFICIENT));
+                        } else {
+                            mGestureCropImageView.zoomOutImage(mGestureCropImageView.getCurrentScale()
+                                    + delta * ((mGestureCropImageView.getMaxScale() - mGestureCropImageView.getMinScale()) / SCALE_WIDGET_SENSITIVITY_COEFFICIENT));
+                        }
                     }
 
                     @Override
@@ -506,6 +513,7 @@ public class UCropActivity extends AppCompatActivity {
 
         ((HorizontalProgressWheelView) findViewById(R.id.rotate_scroll_wheel)).setMiddleLineColor(mActiveControlsWidgetColor);
 
+        setScaleTextColor(mActiveControlsWidgetColor);
 
         findViewById(R.id.wrapper_reset_rotate).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -565,14 +573,14 @@ public class UCropActivity extends AppCompatActivity {
     }
 
     private void setScaleText(float scale) {
-        if (mTextViewScalePercent != null) {
-            mTextViewScalePercent.setText(String.format(Locale.getDefault(), "%d%%", (int) (scale * 100)));
+        if ( mTextViewRotateAngle != null) {
+            mTextViewRotateAngle.setText(String.format(Locale.getDefault(), "%d%%", (int) (scale * 100)));
         }
     }
 
     private void setScaleTextColor(int textColor) {
-        if (mTextViewScalePercent != null) {
-            mTextViewScalePercent.setTextColor(textColor);
+        if ( mTextViewRotateAngle != null) {
+            mTextViewRotateAngle.setTextColor(textColor);
         }
     }
 
@@ -596,15 +604,17 @@ public class UCropActivity extends AppCompatActivity {
     };
 
     private void setInitialState() {
-        if (mShowBottomControls) {
-            if (mWrapperStateAspectRatio.getVisibility() == View.VISIBLE) {
-                setWidgetState(R.id.state_aspect_ratio);
-            } else {
-                setWidgetState(R.id.state_scale);
-            }
-        } else {
-            setAllowedGestures(0);
-        }
+        setWidgetState(R.id.state_rotate);
+//        if (mShowBottomControls) {
+//
+//            if (mWrapperStateAspectRatio.getVisibility() == View.VISIBLE) {
+//                setWidgetState(R.id.state_aspect_ratio);
+//            } else {
+//                setWidgetState(R.id.state_rotate);
+//            }
+//        } else {
+//            setAllowedGestures(0);
+//        }
     }
 
     private void setWidgetState(@IdRes int stateViewId) {
@@ -623,7 +633,7 @@ public class UCropActivity extends AppCompatActivity {
         if (stateViewId == R.id.state_scale) {
             setAllowedGestures(0);
         } else if (stateViewId == R.id.state_rotate) {
-            setAllowedGestures(1);
+            setAllowedGestures(0);
         } else {
             setAllowedGestures(2);
         }

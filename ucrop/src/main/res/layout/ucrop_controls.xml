@@ -30,7 +30,8 @@
 
         <include
             android:id="@+id/layout_scale_wheel"
-            layout="@layout/ucrop_layout_scale_wheel" />
+            layout="@layout/ucrop_layout_scale_wheel"
+            android:visibility="gone" />
 
     </FrameLayout>
 
@@ -49,7 +50,8 @@
         android:background="@color/ucrop_color_widget_background"
         android:baselineAligned="false"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/state_aspect_ratio"
