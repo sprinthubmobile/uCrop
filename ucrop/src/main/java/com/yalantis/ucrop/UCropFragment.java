@@ -393,7 +393,7 @@ public class UCropFragment extends Fragment {
         view.findViewById(R.id.wrapper_reset_rotate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetRotation();
+                rotateByAngle(- 90);
             }
         });
         view.findViewById(R.id.wrapper_rotate_by_angle).setOnClickListener(new View.OnClickListener() {

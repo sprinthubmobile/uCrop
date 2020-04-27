@@ -510,7 +510,7 @@ public class UCropActivity extends AppCompatActivity {
         findViewById(R.id.wrapper_reset_rotate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetRotation();
+                rotateByAngle(- 90);
             }
         });
         findViewById(R.id.wrapper_rotate_by_angle).setOnClickListener(new View.OnClickListener() {
